@@ -1,0 +1,4 @@
+{
+    "query": "Is it warm today?",
+    "skill_args": {"context": "The weather is nice."}
+}
