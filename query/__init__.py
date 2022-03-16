@@ -2,16 +2,13 @@ import logging
 
 import azure.functions as func
 
-from square_skill_api.models.prediction import QueryOutput
-from square_skill_api.models.request import QueryRequest
+from square_skill_api.models.prediction import QueryOutput, QueryRequest
 
-from square_skill_helpers.config import SquareSkillHelpersConfig
 from square_skill_helpers.square_api import ModelAPI
 
 logger = logging.getLogger(__name__)
 
-config = SquareSkillHelpersConfig.from_dotenv()
-model_api = ModelAPI(config)
+model_api = ModelAPI()
 
 
 async def main(req: func.HttpRequest) -> func.HttpResponse:
@@ -36,7 +33,7 @@ async def main(req: func.HttpRequest) -> func.HttpResponse:
     logger.info(f"Model API output:\n{model_api_output}")
 
     response = QueryOutput.from_sequence_classification(
-        answers=["No", "Yes"], 
+        answers=["no", "yes"], 
         model_api_output=model_api_output, 
         context=context
     ).json()
